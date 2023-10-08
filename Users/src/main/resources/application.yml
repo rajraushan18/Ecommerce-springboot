@@ -1,0 +1,41 @@
+
+
+#server port
+server:
+  port: 8081
+  
+
+#application name
+spring:
+  application:
+    name: USER-SERVICE
+    
+#database
+  datasource:
+    url: jdbc:mysql://localhost:3306/EcommerceMicroservices
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+#Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        
+#eureka service registry        
+eureka:
+  instance:
+    prefer-ip-address: true       #it will use the ip address of the server to guess the hostname
+  client:
+    fetch-registry: true          #it will fetch the server registry
+    register-with-eureka: true    #will got registered to the server registry
+    service-url:
+      defaultZone: http://localhost:8761/eureka       #eureka server url 
+          
+
+  
+  

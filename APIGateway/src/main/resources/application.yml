@@ -1,0 +1,55 @@
+server:
+  port: 8085
+  
+spring:
+  application:
+    name: API-GATEWAY  
+    
+#api gateway config
+  cloud:
+    gateway:
+      routes: 
+       - id: USER-SERVICE
+         uri : lb://USER-SERVICE 
+         predicates:
+            - Path=/user/**, /product/**
+#         filters:                   #this will tell API gateway to authenticate the url
+#            - AuthenticationFilter   #authentication filter name
+            
+       - id: PRODUCT-DETAILS-SERVICE     
+         uri : lb://PRODUCT-DETAILS-SERVICE 
+         predicates:
+            - Path=/admin/productdetails/**   
+         filters:
+            - AuthenticationFilter       
+            
+       - id: PRODUCT-SERVICE     
+         uri : lb://PRODUCT-SERVICE 
+         predicates:
+            - Path=/service/**           
+         filters:
+            - AuthenticationFilter
+            
+       - id: CART-SERVICE     
+         uri : lb://CART-SERVICE 
+         predicates:
+            - Path=/cart/**         
+         filters:
+            - AuthenticationFilter
+            
+       - id: SECURITY-SERVICE     
+         uri : lb://SECURITY-SERVICE 
+         predicates:
+            - Path=/auth/**       
+       
+    
+    
+#eureka service registry
+eureka:
+  instance:
+    prefer-ip-address: true       #it will use the ip address of the server to guess the hostname
+  client:
+    fetch-registry: true          #it will fetch the server registry
+    register-with-eureka: true    #will got registered to the server registry
+    service-url:
+      defaultZone: http://localhost:8761/eureka       #eureka server url     
