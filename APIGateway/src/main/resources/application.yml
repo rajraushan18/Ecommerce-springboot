@@ -13,8 +13,8 @@ spring:
          uri : lb://USER-SERVICE 
          predicates:
             - Path=/user/**, /product/**
-#         filters:                   #this will tell API gateway to authenticate the url
-#            - AuthenticationFilter   #authentication filter name
+         filters:                   #this will tell API gateway to authenticate the url
+            - AuthenticationFilter   #authentication filter name
             
        - id: PRODUCT-DETAILS-SERVICE     
          uri : lb://PRODUCT-DETAILS-SERVICE 
