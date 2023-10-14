@@ -1,0 +1,25 @@
+version: '3'
+services:
+  database:
+   image: mysql
+   environment:
+    - MYSQL_ROOT_PASSWORD = root
+   ports:
+    - 3306:3306 
+   networks:
+    - mynetwork
+    
+  user-service:
+   build:
+    context: ./Users
+   ports:
+    - 8081:8081 
+   networks:
+    - mynetwork
+   depends_on:
+    - database
+    
+    
+    
+networks:
+  mynetwork:
